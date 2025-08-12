@@ -1,0 +1,107 @@
+% \iffalse
+%<*driver>
+\ProvidesFile{notationTex.dtx}[2025/08/11 v0.1 AI/ML notation macros + table]
+\documentclass{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{notationTex.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \title{notationTex: Canonical notation definitions for AI/ML use, with auto-generated notation table}
+% \author{Matthew McDermott}
+% \date{2025/08/11}
+%
+% \maketitle
+% \section{Overview}
+% Concept-centric notation macros for AI/ML with an auto-generated notation table.
+%
+% \StopEventually{}
+%
+% \section{The package}
+% \begin{implementation}
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesExplPackage{notationTex}{2025/08/11}{0.1}
+  {AI/ML notation helpers with auto notation table}
+
+\RequirePackage{expl3,xparse}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{amsmath,amssymb,mathtools,longtable,dsfont}
+
+\ExplSyntaxOn
+% ------------------------------------------------------------
+% Data structures
+% ------------------------------------------------------------
+% catalog: key = macro name as string (e.g., "\\rv")
+% value = \note_data:nnnn {name}{argspec}{example}{desc}
+\prop_new:N \g_note_catalog_prop
+% used set: key = macro name as string
+\prop_new:N \g_note_used_prop
+
+% stringify a control sequence for use as prop key
+\cs_new:Npn \note_cs_to_str:N #1 { \token_to_str:N #1 }
+
+% pack 6 fields into a token list that expands to 6 brace groups
+\cs_new:Npn \note_data:nnnn #1#2#3 { {#1}{#2}{#3} }
+
+% unpack into scratch tl vars (expand the stored token list once)
+\cs_new_protected:Npn \note_unpack_set:n #1
+  { \exp_args:No \note_unpack_set_aux:nnnn {#1} }
+
+\cs_new_protected:Npn \note_unpack_set_aux:nnnn #1#2#3
+  {
+    \tl_set:Nn \l_name_tl   {#1}
+    \tl_set:Nn \l_ex_tl     {#2}
+    \tl_set:Nn \l_desc_tl   {#3}
+  }
+
+
+\tl_new:N \l_name_tl
+\tl_new:N \l_ex_tl
+\tl_new:N \l_desc_tl
+
+% mark usage (by name)
+\cs_new_protected:Npn \note_mark_used:n #1
+  { \prop_gput:Nnn \g_note_used_prop {#1} {1} }
+
+% register in catalog
+\cs_new_protected:Npn \note_catalog_put:nnnn #1#2#3
+  { % name, ex, desc
+    \prop_if_in:NnF \g_note_catalog_prop {#1}
+      { \prop_put:Nnn \g_note_catalog_prop {#1}
+          { \note_data:nnnn {#1}{#2}{#3} } }
+  }
+
+% ------------------------------------------------------------
+% Public declarers
+% ------------------------------------------------------------
+%   \DeclareNotation{\name}[args]{<definition>}[<example>]{<desc>}
+\NewDocumentCommand \DeclareNotation { m O{} m O{} m }
+  {
+    \note_catalog_put:nnnn
+      {\note_cs_to_str:N #1}{#4}{#5}
+
+    \cs_if_exist:NTF #1
+      { \RenewDocumentCommand #1 { #2 } { \note_mark_used:n { \note_cs_to_str:N #1 }  #3 } }
+      { \NewDocumentCommand   #1 { #2 } { \note_mark_used:n { \note_cs_to_str:N #1 }  #3 } }
+  }
+
+
+% ------------------------------------------------------------
+% Built-in notation
+% ------------------------------------------------------------
+
+% General
+\DeclareNotation{\R}{\mathbb{R}}[\R]{The set of real numbers.}
+\DeclareNotation{\rv}[m]{\mathsf{#1}}[\rv{x}]{
+  Indicates that $\rv x$ is a random variable, as opposed to a deterministic variable $x$.
+}
+
+\ExplSyntaxOff
+% </package>
+% \end{implementation}
