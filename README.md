@@ -88,16 +88,32 @@ This package defines common set indicators, such as `\R` for the real numbers, `
 
 # `notation-probability`: Predefined notation for commonly referenced probability concepts.
 
-**TODO**
+To use this package, load it with:
+
+```latex
+\usepackage{notation-probability}
+```
 
 # `notation-linearalgebra`: Predefined notation for commonly referenced linear algebra concepts.
 
-**TODO**
+To use this package, load it with:
+
+```latex
+\usepackage{notation-linearalgebra}
+```
 
 # `notataion-calculus`: Predefined notation for commonly referenced calculus concepts.
 
-**TODO**
+To use this package, load it with:
 
-# `notation-ai`: Predefined notation for commonly referenced AI concepts.
+```latex
+\usepackage{notation-calculus}
+```
 
-**TODO**
+# `notation-ops`: Predefined notation for commonly referenced operations.
+
+To use this package, load it with:
+
+```latex
+\usepackage{notation-ops}
+```
