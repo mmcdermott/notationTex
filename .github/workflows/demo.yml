@@ -1,0 +1,31 @@
+name: build-demo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-demo:
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: 1755796661
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX Live
+        run: sudo apt-get update && sudo apt-get install -y texlive-full latexmk
+
+      - name: Build package
+        run: |
+          latex notation.ins
+          l3build doc
+
+      - name: Compile demo
+        run: |
+          cp examples/demo.pdf /tmp/demo.pdf
+          latexmk -pdf -interaction=nonstopmode examples/demo.tex
+
+      - name: Verify example PDF
+        run: cmp /tmp/demo.pdf examples/demo.pdf
