@@ -1,10 +1,10 @@
-% \iffalse
+% \iffalse meta-comment
+%
+% This file defines the `notation` package.
+%
 %<*driver>
 \ProvidesFile{notation.dtx}[2025/08/11 v0.1 AI/ML notation macros + table]
-\documentclass{ltxdoc}
-\EnableCrossrefs
-\CodelineIndex
-\RecordChanges
+\documentclass{l3doc}
 \begin{document}
   \DocInput{notation.dtx}
 \end{document}
@@ -19,11 +19,11 @@
 % \section{Overview}
 % Concept-centric notation macros for AI/ML with an auto-generated notation table.
 %
-% \StopEventually{}
-%
-% \section{The package}
+% \section{Implementation}
 % \begin{implementation}
 %<*package>
+%
+% \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesExplPackage{notation}{2025/08/21}{0.1}
   {AI/ML notation helpers with auto notation table}
@@ -34,25 +34,15 @@
 \RequirePackage{mathtools,longtable}
 
 \ExplSyntaxOn
-% ------------------------------------------------------------
-% Data structures
-% ------------------------------------------------------------
-% note_example_prop: key = macro name as string (e.g., "\\rv")
-% value = example
 \prop_new:N \g_note_example_prop
-% note_description_prop: key = macro name as string (e.g., "\\rv")
-% value = description
 \prop_new:N \g_note_description_prop
-% used set: key = macro name as string
 \prop_new:N \g_note_used_prop
 
-% mark usage (by name)
 \cs_new_protected:Npn \note_mark_used:n #1
   {
     \prop_gput:Nnn \g_note_used_prop {#1} {1}
   }
 
-% register in catalog
 \cs_new_protected:Npn \note_catalog_put:nnn #1#2#3
   { % name, ex, desc
 
@@ -64,11 +54,6 @@
 
   }
 
-% ------------------------------------------------------------
-% Used-notation table (no sorting, catalog order)
-% ------------------------------------------------------------
-
-% -- Used-notation table: collect rows, then join with \\ (no trailing \\)
 \NewDocumentCommand \NotationUsedTable { }
   {
     \longtable{>{\raggedright\arraybackslash}l%
@@ -102,11 +87,6 @@
     \endlongtable
   }
 
-
-% -----------------------------------------------------------capcape
-% Public declarers
-% ------------------------------------------------------------
-%   \DeclareNotation{\name}[args]{<definition>}[<example>]{<desc>}
 \NewDocumentCommand \DeclareNotation { m O{} m O{} +m }
   {
 
@@ -120,13 +100,8 @@
       { \NewDocumentCommand   #1 { #2 } { \note_mark_used:n { #1 }  #3 } }
   }
 
-
-% ------------------------------------------------------------
-% Built-in notation
-% ------------------------------------------------------------
-
-% General
-
 \ExplSyntaxOff
-% </package>
+% \end{macrocode}
+%
+%</package>
 % \end{implementation}
