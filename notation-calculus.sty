@@ -1,0 +1,11 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notation-calculus}[2025/08/21 v0.1 Calculus Notation]
+\RequirePackage{notation}
+\RequirePackage{amsmath}
+
+\DeclareNotation{\pd}[m m]{\frac{\partial #1}{\partial #2}}[\pd{f(x, y)}{x}]{
+  Denotes the partial derivative of $f(x, y)$ with respect to $x$.
+}
+\DeclareNotation{\grad}[m]{\nabla #1}[\grad{f(x, y)}]{
+  Denotes the gradient of $f(x, y)$ (the vector of all its first-order partial derivatives).
+}

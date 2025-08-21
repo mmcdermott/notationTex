@@ -1,0 +1,12 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notation-ops}[2025/08/21 v0.1 Common Operations Notation]
+\RequirePackage{notation}
+\RequirePackage{amsmath}
+
+\DeclareNotation{\abs}[m]{\left|#1\right|}[\abs{x}]{Denotes the absolute value of $x$.}
+\DeclareNotation{\ceil}[m]{\left\lceil#1\right\rceil}[\ceil{x}]{
+  Denotes the ceiling of $x$, the smallest integer greater than or equal to $x$.
+}
+\DeclareNotation{\floor}[m]{\left\lfloor#1\right\rfloor}[\floor{x}]{
+  Denotes the floor of $x$, the largest integer less than or equal to $x$.
+}

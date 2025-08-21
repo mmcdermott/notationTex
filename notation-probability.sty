@@ -2,8 +2,30 @@
 \ProvidesPackage{notation-probability}[2025/08/21 v0.1 Probability Notation]
 \RequirePackage{notation}
 \RequirePackage{amsmath}
+\RequirePackage{dsfont}
 
+\DeclareNotation{\1}[m]{\mathds{1}_{#1}}[\1{x > 5}]{
+  Denotes an indicator function on the given condition. For example, $\1{x > 5}$ is 1 if $x > 5$ and 0
+  otherwise.
+}
 \DeclareNotation{\rv}[m]{\mathsf{#1}}[\rv{x}]{
   Indicates that $\rv x$ is a random variable, as opposed to a deterministic variable $x$. A random variable
   $\rv x$ will typically have probability density function $p_{\rv x}$.
 }
+
+% conditional random variable:
+% args: m m o  -> \crv{x}{y}[y]
+%   - #1: symbol to make random
+%   - #2: conditioning variable (random)
+%   - #3: optional deterministic value; if absent, just “| Y”, else “| rv{Y} = y”
+\DeclareNotation{\crv}[m m o]
+  {
+    \IfNoValueTF{#3}
+      { \left.\rv{#1}\,\middle|\, #2\right. }
+      { \left.\rv{#1}\,\middle|\, \rv{#2}=#3\right. }
+  }
+  [\crv{x}{y}[y]]
+  {
+    Denotes a conditional random variable. For example, $\crv{x}{y}[y]$ is the random variable $\rv x$
+    conditional on $\rv y$ taking the deterministic value $y$.
+  }
