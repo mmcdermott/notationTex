@@ -1,8 +1,11 @@
-module  = "notationTex"
+module  = "notation"
+
+typesetfiles  = {"notation.dtx"}
+
 scriptfiles   = {}
-installfiles  = {"notationTex.sty"}
-sourcefiles   = {"notationTex.dtx","notationTex.ins"}
-typesetfiles  = {"notationTex.dtx"}
+installfiles  = {"notation.sty", "notation-*.sty"}
+sourcefiles   = {"notation.dtx","notation.ins"}
+docfiles     = {"README.md", "LICENSE", "examples/demo.tex"}
 
 -- Tagging support: `l3build tag v0.1`
 function update_tag(file, content, tagname, tagdate)
