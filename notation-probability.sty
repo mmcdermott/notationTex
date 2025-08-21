@@ -1,0 +1,9 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notation-probability}[2025/08/21 v0.1 Probability Notation]
+\RequirePackage{notation}
+\RequirePackage{amsmath}
+
+\DeclareNotation{\rv}[m]{\mathsf{#1}}[\rv{x}]{
+  Indicates that $\rv x$ is a random variable, as opposed to a deterministic variable $x$. A random variable
+  $\rv x$ will typically have probability density function $p_{\rv x}$.
+}

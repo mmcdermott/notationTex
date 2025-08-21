@@ -1,0 +1,26 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notation-linearalgebra}[2025/08/21 v0.1 Linear Algebra Notation]
+\RequirePackage{notation}
+\RequirePackage{amssymb}
+
+\DeclareNotation{\vec}[m]{\boldsymbol{#1}}[\vec{x}]{
+  Indicates that $\vec x$ is a vector, as opposed to a scalar $x$.
+}
+\DeclareNotation{\mat}[m]{\boldsymbol{#1}}[\mat{M}]{
+  Indicates that $\mat M$ is a matrix or linear transformation, as opposed to a scalar $M$. Note this notation
+  is identical to that for vectors, and must be differentiated by context (though matrices will often be
+  denoted with capital letters, and vectors with lowercase letters).
+}
+\DeclareNotation{\norm}[m]{\left\|#1\right\|}[\norm{x}]{
+  The norm of a vector or matrix, e.g., $\norm x$.
+}
+\DeclareNotation{\ip}[m m]{\left\langle#1,#2\right\rangle}[\ip{x,y}]{
+  The inner product (e.g., dot product) of two vectors, e.g., $\ip x y$. what inner product is being used is
+  dictated by context.
+}
+\DeclareNotation{\diag}[m]{\mathrm{diag}\left(#1\right)}[\diag{a, b, c}]{
+  The diagonal matrix with the given elements on the diagonal, e.g., $\diag{a, b, c}$. Passed elements may be a
+  list of elements to fill the matrix diagonal or a vector.
+}
+\DeclareNotation{\Tr}[m]{\mathrm{Tr}\left(#1\right)}[\Tr{\mat A}]{The trace of a matrix, e.g., $\Tr \mat A$.}
+

@@ -1,15 +1,12 @@
 \documentclass{article}
-\usepackage{notationTex}
+
+\usepackage{notation-linearalgebra}
+\usepackage{notation-probability}
+\usepackage{notation-sets}
 
 \begin{document}
 
-\DeclareNotation{\R}{\mathbb{R}}[\R]{The set of real numbers.}
-\DeclareNotation{\rv}[m]{\mathsf{#1}}[\rv{x}]{
-  Indicates that $\rv x$ is a random variable, as opposed to a deterministic variable $x$.
-}
-\DeclareNotation{\N}{\mathbb{N}}[\N]{The set of natural numbers (non-negative integers).}
-
-$\rv x$ takes values in $\R$
+$\rv x$ takes values in $\R$. $\vec{\rv{x}}$ takes values in $\R^3$.
 
 \section*{Notation Table}
 \NotationUsedTable
