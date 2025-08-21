@@ -23,9 +23,7 @@ jobs:
           l3build doc
 
       - name: Compile demo
-        run: |
-          cp examples/demo.pdf /tmp/demo.pdf
-          latexmk -pdf -interaction=nonstopmode examples/demo.tex
+        run: latexmk -pdf -interaction=nonstopmode -outdir=/tmp examples/demo.tex
 
       - name: Verify example PDF
         run: cmp /tmp/demo.pdf examples/demo.pdf
